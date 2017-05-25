@@ -10,3 +10,11 @@
 /home/tim/monodevelop/projects/mod/TimsIRCBot (copy)/TimsIRCBot/obj/x86/Release/TimsIRCBot.exe
 /home/tim/monodevelop/projects/mod/TimsIRCBot (copy)/TimsIRCBot/obj/x86/Release/TimsIRCBot.exe.mdb
 /home/tim/monodevelop/projects/mod/TimsIRCBot (copy)/TimsIRCBot/bin/Release/ChatSharp.dll
+/home/tim/dev/TimsIRCBot/TimsIRCBot/TimsIRCBot/obj/x86/Release/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/home/tim/dev/TimsIRCBot/TimsIRCBot/TimsIRCBot/obj/x86/Release/TimsIRCBot.exe
+/home/tim/dev/TimsIRCBot/TimsIRCBot/TimsIRCBot/obj/x86/Release/TimsIRCBot.exe.mdb
+/home/tim/dev/TimsIRCBot/TimsIRCBot/TimsIRCBot/bin/Release/ChatSharp.dll
+/home/tim/dev/TimsIRCBot/TimsIRCBot/TimsIRCBot/bin/Release/TimsIRCBot.exe.mdb
+/home/tim/dev/TimsIRCBot/TimsIRCBot/TimsIRCBot/bin/Release/TimsIRCBot.pdb
+/home/tim/dev/TimsIRCBot/TimsIRCBot/TimsIRCBot/bin/Release/TimsIRCBot.exe
+/home/tim/dev/TimsIRCBot/TimsIRCBot/TimsIRCBot/obj/x86/Release/TimsIRCBot.pdb
