@@ -1,7 +1,7 @@
 ﻿<Properties StartupConfiguration="{083B556F-3462-438C-9D00-685B509700BB}|Default">
   <MonoDevelop.Ide.Workbench ActiveDocument="TimsIRCBot/Program.cs">
     <Files>
-      <File FileName="TimsIRCBot/Program.cs" Line="9" Column="3" />
+      <File FileName="TimsIRCBot/Program.cs" Line="13" Column="9" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|x86" />
