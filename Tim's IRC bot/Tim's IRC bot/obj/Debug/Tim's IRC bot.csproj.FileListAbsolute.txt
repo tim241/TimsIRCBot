@@ -1,9 +1,0 @@
-C:\Users\tim24\AppData\Local\Temporary Projects\Tim's IRC bot\bin\Debug\Tim's IRC bot.exe.config
-C:\Users\tim24\OneDrive\Documents\Visual Studio 2015\Projects\Tim's IRC bot\Tim's IRC bot\obj\Debug\Tim's IRC bot.csprojResolveAssemblyReference.cache
-C:\Users\tim24\OneDrive\Documents\Visual Studio 2015\Projects\Tim's IRC bot\Tim's IRC bot\bin\Debug\Tims IRC bot.exe.config
-C:\Users\tim24\OneDrive\Documents\Visual Studio 2015\Projects\Tim's IRC bot\Tim's IRC bot\bin\Debug\Tims IRC bot.exe
-C:\Users\tim24\OneDrive\Documents\Visual Studio 2015\Projects\Tim's IRC bot\Tim's IRC bot\bin\Debug\Tims IRC bot.pdb
-C:\Users\tim24\OneDrive\Documents\Visual Studio 2015\Projects\Tim's IRC bot\Tim's IRC bot\bin\Debug\ChatSharp.dll
-C:\Users\tim24\OneDrive\Documents\Visual Studio 2015\Projects\Tim's IRC bot\Tim's IRC bot\bin\Debug\ChatSharp.pdb
-C:\Users\tim24\OneDrive\Documents\Visual Studio 2015\Projects\Tim's IRC bot\Tim's IRC bot\obj\Debug\Tims IRC bot.exe
-C:\Users\tim24\OneDrive\Documents\Visual Studio 2015\Projects\Tim's IRC bot\Tim's IRC bot\obj\Debug\Tims IRC bot.pdb

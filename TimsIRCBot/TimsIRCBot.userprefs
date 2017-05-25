@@ -1,12 +1,14 @@
-﻿<Properties StartupItem="TimsIRCBot/TimsIRCBot.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|x86" />
+﻿<Properties StartupConfiguration="{083B556F-3462-438C-9D00-685B509700BB}|Default">
   <MonoDevelop.Ide.Workbench ActiveDocument="TimsIRCBot/Program.cs">
     <Files>
       <File FileName="TimsIRCBot/Program.cs" Line="340" Column="9" />
     </Files>
   </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|x86" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.TimsIRCBot PreferredExecutionTarget="MonoDevelop.Default" />
+  <MultiItemStartupConfigurations />
 </Properties>
