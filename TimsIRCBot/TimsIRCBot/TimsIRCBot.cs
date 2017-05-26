@@ -113,6 +113,7 @@ namespace TimsIRCBot
 							string IRCmessage = splitinput[3].Remove(0, 1);
 							string[] IRCusersplit = splitinput[0].Split('!');
 							string IRCuser = IRCusersplit[0].Remove(0, 1);
+							string IRCtarget = splitinput[4];
 							switch (IRCmessage)
 							{
 								case "Hello":
@@ -124,7 +125,7 @@ namespace TimsIRCBot
 										if (splitinput.LongLength < 5)
 											SendMessage("Error: missing target", IRCreciever);
 										else
-											kick(splitinput[4], IRCreciever);
+											kick(IRCtarget, IRCreciever);
 									}
 									break;
 								case ">ban":
@@ -133,7 +134,7 @@ namespace TimsIRCBot
 										if (splitinput.LongLength < 5)
 											SendMessage("Error: missing target", IRCreciever);
 										else
-											Ban(splitinput[4], IRCreciever);
+											Ban(IRCtarget, IRCreciever);
 									}
 									break;
 								case ">op":
@@ -142,16 +143,16 @@ namespace TimsIRCBot
 										if (splitinput.LongLength < 5)
 											SendMessage("Error: missing target", IRCreciever);
 										else
-											OP(splitinput[4], IRCreciever);
+											OP(IRCtarget, IRCreciever);
 									}
 									break;
 								case ">deop":
 									if (IsOP(IRCuser, IRCreciever))
 									{
 										if (splitinput.LongLength < 5)
-											SendMessage("Error missing target", IRCreciever);
+											SendMessage("Error: missing target", IRCreciever);
 										else
-											DeOP(splitinput[4], IRCreciever);
+											DeOP(IRCtarget, IRCreciever);
 									}
 									break;
 								default:
