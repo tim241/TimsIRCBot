@@ -32,10 +32,20 @@ namespace TimsIRCBot
 		internal static void SendMessage(string message, string user)
 		{
 			message = ":" + message;
-			string msg = "PRIVMSG " + user + " " + message;
-			IRCwriter.WriteLine(msg);
+			SendRaw("PRIVMSG " + user + " " + message);
+		}
+		internal static void SendRaw(string rawdata) {
+			IRCwriter.WriteLine(rawdata);
 			IRCwriter.Flush();
-			OUT(msg);
+			OUT(rawdata);
+		}
+		internal static bool IsOP(string user, string channel)
+		{
+			SendRaw("NAMES " + channel);
+			if (IRCreader.ReadLine().Contains("@" + user))
+				return true;
+			else
+				return false;
 		}
 		static void Main(string[] args) 
 		{
@@ -52,25 +62,37 @@ namespace TimsIRCBot
 					string[] splitinput = input.Split(' ');
 					if (splitinput[0] == "PING")
 					{
-						IRCwriter.WriteLine("PONG " + splitinput[1]);
-						IRCwriter.Flush();
+						SendRaw("PONG " + splitinput[1]);
 					}
 					if (splitinput[1] == "001")
 					{
 						foreach (string IRCchannel in IRCchannels)
 						{
-							IRCwriter.WriteLine("JOIN " + IRCchannel);
-							IRCwriter.Flush();
+							SendRaw("JOIN " + IRCchannel);
 						}
 					}
 					if (splitinput.LongLength >= 4)
 					{
-						string IRCmsgreciever = splitinput[2];
+						string IRCreciever = splitinput[2];
 						string IRCmessage = splitinput[3].Remove(0, 1);
+						string[] IRCusersplit = splitinput[0].Split('!');
+						string IRCuser = IRCusersplit[0].Remove(0, 1);
 						switch (IRCmessage)
 						{
 							case "Hello":
-								SendMessage("Hi", IRCmsgreciever);
+								SendMessage("Hi", IRCreciever);
+								break;
+							case ">kick":
+								if (IsOP(IRCuser, IRCreciever))
+								{
+									if (splitinput.LongLength < 5)
+										SendMessage("Error: missing target", IRCreciever);
+									else
+										SendRaw("KICK " + IRCreciever + " " + splitinput[4]);
+								}
+								else {
+									SendMessage("Error: access denied", IRCreciever);
+								}
 								break;
 							default:
 								break;
