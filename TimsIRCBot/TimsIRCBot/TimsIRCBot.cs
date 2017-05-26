@@ -53,6 +53,16 @@ namespace TimsIRCBot
 		{
 			SendRaw("KICK " + channel + " " + user);
 		}
+		// Gives a user OP rights
+		internal static void OP(string user, string channel)
+		{
+			SendRaw("MODE " + channel + " +o " + user);
+		}
+		// Removes OP rights from a user
+		internal static void DeOP(string user, string channel)
+		{
+			SendRaw("MODE " + channel + " -o " + user);
+		}
 		// bans a user from a channel
 		internal static void Ban(string user, string channel)
 		{
@@ -126,6 +136,24 @@ namespace TimsIRCBot
 											Ban(splitinput[4], IRCreciever);
 									}
 									break;
+								case ">op":
+									if (IsOP(IRCuser, IRCreciever))
+									{
+										if (splitinput.LongLength < 5)
+											SendMessage("Error: missing target", IRCreciever);
+										else
+											OP(splitinput[4], IRCreciever);
+									}
+									break;
+								case ">deop":
+									if (IsOP(IRCuser, IRCreciever))
+									{
+										if (splitinput.LongLength < 5)
+											SendMessage("Error missing target", IRCreciever);
+										else
+											DeOP(splitinput[4], IRCreciever);
+									}
+									break;
 								default:
 									break;
 							}
@@ -145,4 +173,3 @@ namespace TimsIRCBot
 		}
 	}
 }
-
