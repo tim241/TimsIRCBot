@@ -7,6 +7,7 @@ namespace TimsIRCBot
 	{
 		// Declaring strings
 		internal static string input;
+		internal static string IRCreciever;
 		internal static string[] splitinput;
 		// Setting IRC nick
 		internal static string IRCnick = "TimsIRCBot";
@@ -70,8 +71,16 @@ namespace TimsIRCBot
 			kick(user, channel);
 		}
 		// Checks if the user who requested the command, has OP
-		internal static bool IsOP(string user, string channel)
+		internal static bool IsOP(string user, string channel, bool HasTarget = false)
 		{
+			if (HasTarget == true)
+			{
+				if (splitinput.LongLength < 5)
+				{
+					SendMessage("Error: missing target", IRCreciever);
+					return false;
+				}
+			}
 			SendRaw("NAMES " + channel);
 			if (IRCreader.ReadLine().Contains("@" + user))
 				return true;
@@ -109,51 +118,30 @@ namespace TimsIRCBot
 						}
 						if (splitinput.LongLength >= 4)
 						{
-							string IRCreciever = splitinput[2];
+							IRCreciever = splitinput[2];
 							string IRCmessage = splitinput[3].Remove(0, 1);
 							string[] IRCusersplit = splitinput[0].Split('!');
 							string IRCuser = IRCusersplit[0].Remove(0, 1);
-							string IRCtarget = splitinput[4];
 							switch (IRCmessage)
 							{
 								case "Hello":
 									SendMessage("Hi", IRCreciever);
 									break;
 								case ">kick":
-									if (IsOP(IRCuser, IRCreciever))
-									{
-										if (splitinput.LongLength < 5)
-											SendMessage("Error: missing target", IRCreciever);
-										else
-											kick(IRCtarget, IRCreciever);
-									}
+									if (IsOP(IRCuser, IRCreciever, true))
+											kick(splitinput[4], IRCreciever);
 									break;
 								case ">ban":
 									if (IsOP(IRCuser, IRCreciever))
-									{
-										if (splitinput.LongLength < 5)
-											SendMessage("Error: missing target", IRCreciever);
-										else
-											Ban(IRCtarget, IRCreciever);
-									}
+											Ban(splitinput[4], IRCreciever);
 									break;
 								case ">op":
 									if (IsOP(IRCuser, IRCreciever))
-									{
-										if (splitinput.LongLength < 5)
-											SendMessage("Error: missing target", IRCreciever);
-										else
-											OP(IRCtarget, IRCreciever);
-									}
+											OP(splitinput[4], IRCreciever);
 									break;
 								case ">deop":
 									if (IsOP(IRCuser, IRCreciever))
-									{
-										if (splitinput.LongLength < 5)
-											SendMessage("Error: missing target", IRCreciever);
-										else
-											DeOP(IRCtarget, IRCreciever);
-									}
+											DeOP(splitinput[4], IRCreciever);
 									break;
 								default:
 									break;
