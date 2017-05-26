@@ -63,62 +63,72 @@ namespace TimsIRCBot
 				Console.WriteLine("Error: channels.txt required");
 				Environment.Exit(1);
 			}
-			IRCconnect();
-			while (true)
+			try
 			{
-				while ((input = IRCreader.ReadLine()) != null)
+				IRCconnect();
+				while (true)
 				{
-					Console.WriteLine("<< " + input);
-					string[] splitinput = input.Split(' ');
-					if (splitinput[0] == "PING")
+					while ((input = IRCreader.ReadLine()) != null)
 					{
-						SendRaw("PONG " + splitinput[1]);
-					}
-					if (splitinput[1] == "001")
-					{
-						foreach (string IRCchannel in IRCchannels)
+						Console.WriteLine("<< " + input);
+						string[] splitinput = input.Split(' ');
+						if (splitinput[0] == "PING")
 						{
-							SendRaw("JOIN " + IRCchannel);
+							SendRaw("PONG " + splitinput[1]);
+						}
+						if (splitinput[1] == "001")
+						{
+							foreach (string IRCchannel in IRCchannels)
+							{
+								SendRaw("JOIN " + IRCchannel);
+							}
+						}
+						if (splitinput.LongLength >= 4)
+						{
+							string IRCreciever = splitinput[2];
+							string IRCmessage = splitinput[3].Remove(0, 1);
+							string[] IRCusersplit = splitinput[0].Split('!');
+							string IRCuser = IRCusersplit[0].Remove(0, 1);
+							switch (IRCmessage)
+							{
+								case "Hello":
+									SendMessage("Hi", IRCreciever);
+									break;
+								case ">kick":
+									if (IsOP(IRCuser, IRCreciever))
+									{
+										if (splitinput.LongLength < 5)
+											SendMessage("Error: missing target", IRCreciever);
+										else
+											kick(splitinput[4], IRCreciever);
+									}
+									break;
+								case ">ban":
+									if (IsOP(IRCuser, IRCreciever))
+									{
+										if (splitinput.LongLength < 5)
+											SendMessage("Error: missing target", IRCreciever);
+										else
+											Ban(splitinput[4], IRCreciever);
+									}
+									break;
+								default:
+									break;
+							}
 						}
 					}
-					if (splitinput.LongLength >= 4)
-					{
-						string IRCreciever = splitinput[2];
-						string IRCmessage = splitinput[3].Remove(0, 1);
-						string[] IRCusersplit = splitinput[0].Split('!');
-						string IRCuser = IRCusersplit[0].Remove(0, 1);
-						switch (IRCmessage)
-						{
-							case "Hello":
-								SendMessage("Hi", IRCreciever);
-								break;
-							case ">kick":
-								if (IsOP(IRCuser, IRCreciever))
-								{
-									if (splitinput.LongLength < 5)
-										SendMessage("Error: missing target", IRCreciever);
-									else
-										kick(splitinput[4], IRCreciever);
-								}
-								break;
-							case ">ban":
-								if (IsOP(IRCuser, IRCreciever))
-								{
-									if (splitinput.LongLength < 5)
-										SendMessage("Error: missing target", IRCreciever);
-									else
-										Ban(splitinput[4], IRCreciever);
-								}
-								break;
-							default:
-								break;
-						}
-					}
+					IRCreader.Close();
+					IRCwriter.Close();
+					IRCstream.Close();
 				}
-				IRCreader.Close();
-				IRCwriter.Close();
-				IRCstream.Close();
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e.ToString());
+				System.Threading.Thread.Sleep(5000);
+				Main(args);
 			}
 		}
 	}
 }
+
