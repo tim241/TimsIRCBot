@@ -132,15 +132,15 @@ namespace TimsIRCBot
 											kick(splitinput[4], IRCreciever);
 									break;
 								case ">ban":
-									if (IsOP(IRCuser, IRCreciever))
+									if (IsOP(IRCuser, IRCreciever, true))
 											Ban(splitinput[4], IRCreciever);
 									break;
 								case ">op":
-									if (IsOP(IRCuser, IRCreciever))
+									if (IsOP(IRCuser, IRCreciever, true))
 											OP(splitinput[4], IRCreciever);
 									break;
 								case ">deop":
-									if (IsOP(IRCuser, IRCreciever))
+									if (IsOP(IRCuser, IRCreciever, true))
 											DeOP(splitinput[4], IRCreciever);
 									break;
 								default:
