@@ -38,20 +38,13 @@ namespace TimsIRCBot
 						IRCwriter.WriteLine("PONG " + splitinput[1]);
 						IRCwriter.Flush();
 					}
-					switch (splitinput[1])
-					{
-						case "001":
-							foreach (string IRCchannel in IRCchannels)
-							{
-								IRCwriter.WriteLine("JOIN " + IRCchannel);
-								IRCwriter.Flush();
-							}
-							break;
-						default:
-							break;
+					if (splitinput[1] == "001"){
+						foreach (string IRCchannel in IRCchannels)
+						{
+							IRCwriter.WriteLine("JOIN " + IRCchannel);
+							IRCwriter.Flush();
+						}
 					}
-
-						
 				}
 				IRCreader.Close();
 				IRCwriter.Close();
