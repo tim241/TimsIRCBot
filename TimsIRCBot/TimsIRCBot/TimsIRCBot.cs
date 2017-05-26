@@ -15,8 +15,6 @@ namespace TimsIRCBot
 		internal static NetworkStream IRCstream;
 		internal static StreamReader IRCreader;
 		internal static StreamWriter IRCwriter;
-		internal static string KickedChannel;
-		internal static bool HasJoined;
 		internal static void IRCconnect()
 		{
 			IRCserv = new TcpClient(IRCservaddr, IRCservport);
@@ -50,15 +48,6 @@ namespace TimsIRCBot
 			SendRaw("MODE " + channel + " +b " + user + "*!*");
 			kick(user, channel);
 		}
-		internal static bool IsJoined() {
-			if (IRCreader.ReadLine().Split(' ')[1] == "002" || HasJoined == true)
-			{
-				HasJoined = true;
-				return true;
-			}
-			else
-				return false;
-		}
 		internal static bool IsOP(string user, string channel)
 		{
 			SendRaw("NAMES " + channel);
@@ -67,16 +56,6 @@ namespace TimsIRCBot
 			else
 				SendMessage("Error: access denied", channel);
 				return false;
-		}
-		internal static bool IsKicked()
-		{
-			string message = IRCreader.ReadLine();
-			if (message.Contains("KICK") && message.Contains(IRCnick) && !message.Contains("bot") && !message.Contains("bots"))
-			{
-					KickedChannel = message.Split(' ')[2];
-					return true;
-			}
-			return false;
 		}
 		static void Main(string[] args) 
 		{
@@ -101,10 +80,6 @@ namespace TimsIRCBot
 						{
 							SendRaw("JOIN " + IRCchannel);
 						}
-					}
-					if (IsKicked())
-					{
-						SendRaw("JOIN " + KickedChannel);
 					}
 					if (splitinput.LongLength >= 4)
 					{
