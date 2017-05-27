@@ -32,7 +32,17 @@ namespace TimsIRCBot
 		}
 		// Write output to the controle
 		internal static void OUT(string output) {
-			Console.WriteLine(">> " + output);
+			Console.ForegroundColor = ConsoleColor.Green;
+			Console.Write(">> ");
+			Console.ResetColor();
+			Console.Write(output + Environment.NewLine);
+		}
+		internal static void IN(string input)
+		{
+			Console.ForegroundColor = ConsoleColor.Red;
+			Console.Write("<< ");
+			Console.ResetColor();
+			Console.Write(input + Environment.NewLine);
 		}
 		// Send a message to the selected channel
 		internal static void SendMessage(string message, string user)
@@ -102,7 +112,7 @@ namespace TimsIRCBot
 			IRCuser = "USER " + IRCnick + " 0 * :" + IRCnick;
 			for (int i = 0; i < channels.Count; i++)
 			{
-				IRCchannels = IRCchannels.ToString() + Environment.NewLine + channels[i].InnerText;
+					IRCchannels = IRCchannels.ToString() + Environment.NewLine + channels[i].InnerText;
 			}
 		}
 		static void Main(string[] args) 
@@ -118,7 +128,7 @@ namespace TimsIRCBot
 				{
 					while ((input = IRCreader.ReadLine()) != null)
 					{
-						Console.WriteLine("<< " + input);
+						IN(input);
 						splitinput = input.Split(' ');
 						if (splitinput[0] == "PING")
 						{
