@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Net.Sockets;
-using Mono.CSharp;
 namespace TimsIRCBot
 {
 	class Program
