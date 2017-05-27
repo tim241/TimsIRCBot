@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml;
 using System.IO;
 using System.Net.Sockets;
 namespace TimsIRCBot
@@ -8,14 +9,11 @@ namespace TimsIRCBot
 		// Declaring strings
 		internal static string input;
 		internal static string[] splitinput;
-		// Setting IRC nick
-		internal static string IRCnick = "TimsIRCBot";
-		// Setting IRC server
-		internal static string IRCservaddr = "chat.freenode.net";
-		// Using the IRCnick string for the IRCuser string
-		internal static string IRCuser = "USER " + IRCnick + " 0 * :" + IRCnick;
-		// Set server port
-		internal static int IRCservport = 6667;
+		internal static string IRCchannels = Environment.NewLine;
+		internal static string IRCnick;
+		internal static string IRCservaddr;
+		internal static string IRCuser;
+		internal static int IRCservport;
 		internal static TcpClient IRCserv;
 		internal static NetworkStream IRCstream;
 		internal static StreamReader IRCreader;
@@ -89,14 +87,30 @@ namespace TimsIRCBot
 				return false;
 			}
 		}
+		// Read the configuration file and change strings
+		internal static void ReadConfigXML()
+		{
+			XmlDocument config = new XmlDocument();
+			config.Load("config.xml");
+			XmlNodeList server = config.GetElementsByTagName("SERVER");
+			XmlNodeList channels = config.GetElementsByTagName("ID");
+			XmlNodeList port = config.GetElementsByTagName("PORT");
+			XmlNodeList nick = config.GetElementsByTagName("NICK");
+			IRCservaddr = server[0].InnerText.ToString();
+			IRCservport = Convert.ToInt32(port[0].InnerText);
+			IRCnick = nick[0].InnerText.ToString();
+			IRCuser = "USER " + IRCnick + " 0 * :" + IRCnick;
+			for (int i = 0; i < channels.Count; i++)
+			{
+				IRCchannels = IRCchannels.ToString() + Environment.NewLine + channels[i].InnerText;
+			}
+		}
 		static void Main(string[] args) 
 		{
-			if (!File.Exists("channels.txt")){
-				Console.WriteLine("Error: channels.txt required");
-				Environment.Exit(1);
+			if (!File.Exists("config.xml")){
+				configure.create();
 			}
-			// Read channels.txt 
-		    string[] IRCchannels = File.ReadAllLines("channels.txt");
+			ReadConfigXML();
 			try
 			{
 				IRCconnect();
@@ -112,7 +126,7 @@ namespace TimsIRCBot
 						}
 						if (splitinput[1] == "001")
 						{
-							foreach (string IRCchannel in IRCchannels)
+							foreach (string IRCchannel in IRCchannels.Split(new string[] { Environment.NewLine }, StringSplitOptions.None))
 							{
 								SendRaw("JOIN " + IRCchannel);
 							}
