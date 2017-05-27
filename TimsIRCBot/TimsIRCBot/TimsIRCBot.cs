@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Xml;
 using System.IO;
 using System.Net.Sockets;
@@ -136,7 +137,7 @@ namespace TimsIRCBot
 						}
 						if (splitinput[1] == "001")
 						{
-							foreach (string IRCchannel in IRCchannels.Split(new string[] { Environment.NewLine }, StringSplitOptions.None))
+							foreach (string IRCchannel in IRCchannels.Split(new string[] { Environment.NewLine }, StringSplitOptions.None).Skip(2))
 							{
 								SendRaw("JOIN " + IRCchannel);
 							}
