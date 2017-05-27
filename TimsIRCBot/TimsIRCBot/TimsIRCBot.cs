@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Net.Sockets;
+using Mono.CSharp;
 namespace TimsIRCBot
 {
 	class Program
@@ -84,8 +85,10 @@ namespace TimsIRCBot
 			if (IRCreader.ReadLine().Contains("@" + user))
 				return true;
 			else
+			{
 				SendMessage("Error: access denied", channel);
 				return false;
+			}
 		}
 		static void Main(string[] args) 
 		{
