@@ -7,7 +7,6 @@ namespace TimsIRCBot
 	{
 		// Declaring strings
 		internal static string input;
-		internal static string IRCreciever;
 		internal static string[] splitinput;
 		// Setting IRC nick
 		internal static string IRCnick = "TimsIRCBot";
@@ -77,7 +76,7 @@ namespace TimsIRCBot
 			{
 				if (splitinput.LongLength < 5)
 				{
-					SendMessage("Error: missing target", IRCreciever);
+					SendMessage("Error: missing target", channel);
 					return false;
 				}
 			}
@@ -118,7 +117,7 @@ namespace TimsIRCBot
 						}
 						if (splitinput.LongLength >= 4)
 						{
-							IRCreciever = splitinput[2];
+							string IRCreciever = splitinput[2];
 							string IRCmessage = splitinput[3].Remove(0, 1);
 							string[] IRCusersplit = splitinput[0].Split('!');
 							string IRCuser = IRCusersplit[0].Remove(0, 1);
