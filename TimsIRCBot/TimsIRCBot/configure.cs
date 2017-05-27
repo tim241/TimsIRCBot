@@ -37,7 +37,6 @@ namespace TimsIRCBot
 			config.WriteElementString("PORT", IRCport);
 			config.WriteElementString("NICK", IRCnick);
 			string[] channels = IRCchannels.Split(' ');
-			IRCchannels = channels.ToString();
 			foreach (string channel in channels)
 			{
 				config.WriteStartElement("channel");
