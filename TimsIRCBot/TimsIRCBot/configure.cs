@@ -13,6 +13,14 @@ namespace TimsIRCBot
 		internal static string IRCnick;
 		internal static string IRCchannels;
 		internal static string IRCprefix;
+		//
+		internal static void EmptyCheck(string data)
+		{
+			if (string.IsNullOrEmpty(data)){
+				WriteLine("Error: 1 or more values are empty.");
+				Environment.Exit(1);
+			}
+		}
 		// Shorter version of Console.Write()
 		internal static void Write(string text)
 		{
@@ -72,6 +80,8 @@ namespace TimsIRCBot
 			WriteLine("Example: it will be: '>command'");
 			IRCprefix = Console.ReadLine();
 			Wait();
+			foreach (string data in new string[] { IRCnick, IRCserver, IRCport, IRCchannels, IRCprefix })
+				EmptyCheck(data);
 			Save();
 			WriteLine("Done!");
 			Environment.Exit(0);
