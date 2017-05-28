@@ -44,6 +44,7 @@ namespace TimsIRCBot
 			Console.ResetColor();
 			Console.Write(output + Environment.NewLine);
 		}
+		// Write input to the console
 		internal static void IN(string input)
 		{
 			Console.ForegroundColor = ConsoleColor.Red;
@@ -85,6 +86,7 @@ namespace TimsIRCBot
 			SendRaw("MODE " + channel + " +b " + user + "*!*");
 			kick(user, channel);
 		}
+		// Send the password to nickserv
 		internal static void IRClogin(string password)
 		{
 			SendMessage("identify " + IRCnick + " " + password, "nickserv", false);
