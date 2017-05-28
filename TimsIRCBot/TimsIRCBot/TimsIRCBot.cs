@@ -168,9 +168,7 @@ namespace TimsIRCBot
 							string IRCmessage = splitinput[3].Remove(0, 1);
 							string[] IRCusersplit = splitinput[0].Split('!');
 							string IRCuser = IRCusersplit[0].Remove(0, 1);
-							if (IRCmessage == "Hello")
-								SendMessage("Hi", IRCreciever);
-							else if (IRCmessage == IRCprefix + "kick" || IRCmessage == IRCprefix + "k")
+							if (IRCmessage == IRCprefix + "kick" || IRCmessage == IRCprefix + "k")
 							{
 								if (IsOP(IRCuser, IRCreciever, true))
 									kick(splitinput[4], IRCreciever);
