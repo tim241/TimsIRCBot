@@ -13,7 +13,7 @@ namespace TimsIRCBot
 		internal static string IRCnick;
 		internal static string IRCchannels;
 		internal static string IRCprefix;
-		//
+		// Check if string is empty
 		internal static void EmptyCheck(string data)
 		{
 			if (string.IsNullOrEmpty(data)){
