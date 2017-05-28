@@ -49,10 +49,7 @@ namespace TimsIRCBot
 			config.WriteElementString("PORT", IRCport);
 			config.WriteElementString("NICK", IRCnick);
 			config.WriteElementString("PREFIX", IRCprefix);
-			if (!string.IsNullOrEmpty(IRCpassword))
-			{
-				config.WriteElementString("PASSWORD", IRCpassword);
-			}
+			config.WriteElementString("PASSWORD", IRCpassword);
 			string[] channels = IRCchannels.Split(' ');
 			foreach (string channel in channels)
 			{
