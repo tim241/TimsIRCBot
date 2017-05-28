@@ -6,6 +6,7 @@ namespace TimsIRCBot
 	class configure
 	{
 		// Declaring strings
+		internal static XmlWriterSettings settings;
 		internal static XmlWriter config;
 		internal static string IRCserver;
 		internal static string IRCport;
@@ -31,7 +32,8 @@ namespace TimsIRCBot
 		// Save configuration file 
 		internal static void Save()
 		{
-			config = XmlWriter.Create("config.xml");
+			settings = new XmlWriterSettings { Indent = true, OmitXmlDeclaration = true };
+			config = XmlWriter.Create("config.xml", settings);
 			config.WriteStartDocument();
 			config.WriteStartElement("Settings");
 			config.WriteElementString("SERVER", IRCserver);

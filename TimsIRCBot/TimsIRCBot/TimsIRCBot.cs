@@ -170,12 +170,12 @@ namespace TimsIRCBot
 							}
 							else if (IRCmessage == IRCprefix + "deop")
 							{
-									if (IsOP(IRCuser, IRCreciever, true))
+								if (IsOP(IRCuser, IRCreciever, true))
 									DeOP(splitinput[4], IRCreciever);
 							}
 							else if (IRCmessage == IRCprefix + "help")
 							{
-									if (IsOP(IRCuser, IRCreciever, false))
+								if (IsOP(IRCuser, IRCreciever, false))
 									SendMessage("Commands: kick, ban, op, deop and help.", IRCreciever);
 							}
 						}
