@@ -1,9 +1,9 @@
 ﻿<Properties StartupConfiguration="{083B556F-3462-438C-9D00-685B509700BB}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="TimsIRCBot/TimsIRCBot.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="TimsIRCBot/configure.cs">
     <Files>
-      <File FileName="TimsIRCBot/TimsIRCBot.cs" Line="4" Column="17" />
+      <File FileName="TimsIRCBot/TimsIRCBot.cs" Line="180" Column="9" />
       <File FileName="TimsIRCBot/Properties/AssemblyInfo.cs" Line="28" Column="1" />
-      <File FileName="TimsIRCBot/configure.cs" Line="40" Column="1" />
+      <File FileName="TimsIRCBot/configure.cs" Line="51" Column="4" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|x86" />

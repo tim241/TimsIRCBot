@@ -12,6 +12,7 @@ namespace TimsIRCBot
 		internal static string[] splitinput;
 		internal static string IRCchannels = Environment.NewLine;
 		internal static string IRCnick;
+		internal static string IRCpass;
 		internal static string IRCservaddr;
 		internal static string IRCuser;
 		internal static string IRCprefix;
@@ -31,6 +32,10 @@ namespace TimsIRCBot
 			IRCwriter.Flush();
 			IRCwriter.WriteLine(IRCuser);
 			IRCwriter.Flush();
+			if (!string.IsNullOrEmpty(IRCpass))
+			{
+				IRClogin(IRCpass);
+			}
 		}
 		// Write output to the controle
 		internal static void OUT(string output) {
@@ -47,16 +52,17 @@ namespace TimsIRCBot
 			Console.Write(input + Environment.NewLine);
 		}
 		// Send a message to the selected channel
-		internal static void SendMessage(string message, string user)
+		internal static void SendMessage(string message, string user, bool output = true)
 		{
 			message = ":" + message;
-			SendRaw("PRIVMSG " + user + " " + message);
+			SendRaw("PRIVMSG " + user + " " + message, output);
 		}
 		// Send raw data to an IRC server
-		internal static void SendRaw(string rawdata) {
+		internal static void SendRaw(string rawdata, bool output = true) {
 			IRCwriter.WriteLine(rawdata);
 			IRCwriter.Flush();
-			OUT(rawdata);
+			if(output == true)
+				OUT(rawdata);
 		}
 		// kicks a user from a channel
 		internal static void kick(string user, string channel)
@@ -78,6 +84,10 @@ namespace TimsIRCBot
 		{
 			SendRaw("MODE " + channel + " +b " + user + "*!*");
 			kick(user, channel);
+		}
+		internal static void IRClogin(string password)
+		{
+			SendMessage("identify " + IRCnick + " " + password, "nickserv", false);
 		}
 		// Checks if the user who requested the command, has OP
 		internal static bool IsOP(string user, string channel, bool HasTarget = false)
@@ -108,11 +118,16 @@ namespace TimsIRCBot
 			XmlNodeList channels = config.GetElementsByTagName("ID");
 			XmlNodeList port = config.GetElementsByTagName("PORT");
 			XmlNodeList nick = config.GetElementsByTagName("NICK");
+			XmlNodeList password = config.GetElementsByTagName("PASSWORD");
 			XmlNodeList prefix = config.GetElementsByTagName("PREFIX");
 			IRCprefix = prefix[0].InnerText.ToString();
 			IRCservaddr = server[0].InnerText.ToString();
 			IRCservport = Convert.ToInt32(port[0].InnerText);
 			IRCnick = nick[0].InnerText.ToString();
+			if (!string.IsNullOrEmpty(password[0].InnerText.ToString()))
+			{
+				IRCpass = password[0].InnerText.ToString();
+			}
 			IRCuser = "USER " + IRCnick + " 0 * :" + IRCnick;
 			for (int i = 0; i < channels.Count; i++)
 			{

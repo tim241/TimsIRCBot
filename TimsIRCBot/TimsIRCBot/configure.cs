@@ -13,6 +13,7 @@ namespace TimsIRCBot
 		internal static string IRCnick;
 		internal static string IRCchannels;
 		internal static string IRCprefix;
+		internal static string IRCpassword;
 		// Check if string is empty
 		internal static void EmptyCheck(string data)
 		{
@@ -48,6 +49,10 @@ namespace TimsIRCBot
 			config.WriteElementString("PORT", IRCport);
 			config.WriteElementString("NICK", IRCnick);
 			config.WriteElementString("PREFIX", IRCprefix);
+			if (!string.IsNullOrEmpty(IRCpassword))
+			{
+				config.WriteElementString("PASSWORD", IRCpassword);
+			}
 			string[] channels = IRCchannels.Split(' ');
 			foreach (string channel in channels)
 			{
@@ -67,6 +72,8 @@ namespace TimsIRCBot
 			Console.Clear();
 			Write("Nickname: ");
 			IRCnick = Console.ReadLine();
+			Write("Password(optional):");
+			IRCpassword = Console.ReadLine();
 			Write("Server: ");
 			IRCserver = Console.ReadLine();
 			Write("Server port: ");
