@@ -170,12 +170,12 @@ namespace TimsIRCBot
 							string IRCuser = IRCusersplit[0].Remove(0, 1);
 							if (IRCmessage == "Hello")
 								SendMessage("Hi", IRCreciever);
-							else if (IRCmessage == IRCprefix + "kick")
+							else if (IRCmessage == IRCprefix + "kick" || IRCmessage == IRCprefix + "k")
 							{
 								if (IsOP(IRCuser, IRCreciever, true))
 									kick(splitinput[4], IRCreciever);
 							}
-							else if (IRCmessage == IRCprefix + "ban")
+							else if (IRCmessage == IRCprefix + "ban" || IRCmessage == IRCprefix + "b")
 							{
 								if (IsOP(IRCuser, IRCreciever, true))
 									Ban(splitinput[4], IRCreciever);
@@ -190,10 +190,10 @@ namespace TimsIRCBot
 								if (IsOP(IRCuser, IRCreciever, true))
 									DeOP(splitinput[4], IRCreciever);
 							}
-							else if (IRCmessage == IRCprefix + "help")
+							else if (IRCmessage == IRCprefix + "help" || IRCmessage == IRCprefix + "h")
 							{
 								if (IsOP(IRCuser, IRCreciever, false))
-									SendMessage("Commands: kick, ban, op, deop and help.", IRCreciever);
+									SendMessage("Commands: k(ick), b(an), op, deop and h(elp).", IRCreciever);
 							}
 						}
 					}
