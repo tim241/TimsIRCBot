@@ -169,6 +169,10 @@ namespace TimsIRCBot
 									if (IsOP(IRCuser, IRCreciever, true))
 											DeOP(splitinput[4], IRCreciever);
 									break;
+								case ">help":
+									if (IsOP(IRCuser, IRCreciever, false))
+											SendMessage("Commands: kick, ban, op, deop and help.", IRCreciever);
+									break;
 								default:
 									break;
 							}
