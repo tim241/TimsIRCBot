@@ -32,7 +32,7 @@ namespace TimsIRCBot
 		{
 			Console.WriteLine(text);
 		}
-		//
+		// Continue when the 'ENTER' key is pressed
 		internal static void Wait()
 		{
 			WriteLine("Press the 'ENTER' key to continue...");
