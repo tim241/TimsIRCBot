@@ -11,6 +11,7 @@ namespace TimsIRCBot
 		internal static string IRCport;
 		internal static string IRCnick;
 		internal static string IRCchannels;
+		internal static string IRCprefix;
 		// Shorter version of Console.Write()
 		internal static void Write(string text)
 		{
@@ -36,6 +37,7 @@ namespace TimsIRCBot
 			config.WriteElementString("SERVER", IRCserver);
 			config.WriteElementString("PORT", IRCport);
 			config.WriteElementString("NICK", IRCnick);
+			config.WriteElementString("PREFIX", IRCprefix);
 			string[] channels = IRCchannels.Split(' ');
 			foreach (string channel in channels)
 			{
@@ -63,6 +65,10 @@ namespace TimsIRCBot
 			WriteLine("#channel1 #channel2 #channel3");
 			Write("Channel(s): ");
 			IRCchannels = Console.ReadLine();
+			WriteLine("What do you want your prefix to be?");
+			WriteLine("Example: my prefix is '>'");
+			WriteLine("Example: it will be: '>command'");
+			IRCprefix = Console.ReadLine();
 			Wait();
 			Save();
 			WriteLine("Done!");

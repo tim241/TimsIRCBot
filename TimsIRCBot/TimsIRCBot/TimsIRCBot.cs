@@ -14,6 +14,7 @@ namespace TimsIRCBot
 		internal static string IRCnick;
 		internal static string IRCservaddr;
 		internal static string IRCuser;
+		internal static string IRCprefix;
 		internal static int IRCservport;
 		internal static TcpClient IRCserv;
 		internal static NetworkStream IRCstream;
@@ -107,6 +108,8 @@ namespace TimsIRCBot
 			XmlNodeList channels = config.GetElementsByTagName("ID");
 			XmlNodeList port = config.GetElementsByTagName("PORT");
 			XmlNodeList nick = config.GetElementsByTagName("NICK");
+			XmlNodeList prefix = config.GetElementsByTagName("PREFIX");
+			IRCprefix = prefix[0].InnerText.ToString();
 			IRCservaddr = server[0].InnerText.ToString();
 			IRCservport = Convert.ToInt32(port[0].InnerText);
 			IRCnick = nick[0].InnerText.ToString();
@@ -148,33 +151,32 @@ namespace TimsIRCBot
 							string IRCmessage = splitinput[3].Remove(0, 1);
 							string[] IRCusersplit = splitinput[0].Split('!');
 							string IRCuser = IRCusersplit[0].Remove(0, 1);
-							switch (IRCmessage)
+							if (IRCmessage == "Hello")
+								SendMessage("Hi", IRCreciever);
+							else if (IRCmessage == IRCprefix + "kick")
 							{
-								case "Hello":
-									SendMessage("Hi", IRCreciever);
-									break;
-								case ">kick":
+								if (IsOP(IRCuser, IRCreciever, true))
+									kick(splitinput[4], IRCreciever);
+							}
+							else if (IRCmessage == IRCprefix + "ban")
+							{
+								if (IsOP(IRCuser, IRCreciever, true))
+									Ban(splitinput[4], IRCreciever);
+							}
+							else if (IRCmessage == IRCprefix + "op")
+							{
+								if (IsOP(IRCuser, IRCreciever, true))
+									OP(splitinput[4], IRCreciever);
+							}
+							else if (IRCmessage == IRCprefix + "deop")
+							{
 									if (IsOP(IRCuser, IRCreciever, true))
-											kick(splitinput[4], IRCreciever);
-									break;
-								case ">ban":
-									if (IsOP(IRCuser, IRCreciever, true))
-											Ban(splitinput[4], IRCreciever);
-									break;
-								case ">op":
-									if (IsOP(IRCuser, IRCreciever, true))
-											OP(splitinput[4], IRCreciever);
-									break;
-								case ">deop":
-									if (IsOP(IRCuser, IRCreciever, true))
-											DeOP(splitinput[4], IRCreciever);
-									break;
-								case ">help":
+									DeOP(splitinput[4], IRCreciever);
+							}
+							else if (IRCmessage == IRCprefix + "help")
+							{
 									if (IsOP(IRCuser, IRCreciever, false))
-											SendMessage("Commands: kick, ban, op, deop and help.", IRCreciever);
-									break;
-								default:
-									break;
+									SendMessage("Commands: kick, ban, op, deop and help.", IRCreciever);
 							}
 						}
 					}
