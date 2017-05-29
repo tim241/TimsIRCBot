@@ -50,6 +50,13 @@ namespace TimsIRCBot
 			Console.ResetColor();
 			Console.Write(input + Environment.NewLine); 
 		}
+		// Write an error in red text to the console
+		internal static void Error(string error)
+		{
+			Console.ForegroundColor = ConsoleColor.Red;
+			Console.WriteLine("Error: {0}", error );
+			Console.ResetColor();
+		}
 		// Send a message to the selected channel
 		internal static void SendMessage(string message, string user, bool output = true)
 		{
@@ -195,7 +202,7 @@ namespace TimsIRCBot
 			}
 			catch (Exception e)
 			{
-				Console.WriteLine(e.ToString());
+				Error(e.ToString());
 				System.Threading.Thread.Sleep(5000);
 				Main(args);
 			}
