@@ -33,9 +33,7 @@ namespace TimsIRCBot
 			IRCwriter.WriteLine(IRCuser);
 			IRCwriter.Flush();
 			if (!string.IsNullOrEmpty(IRCpass))
-			{
 				IRClogin(IRCpass);
-			}
 		}
 		// Write output to the controle
 		internal static void OUT(string output) {
@@ -138,9 +136,8 @@ namespace TimsIRCBot
 		}
 		static void Main(string[] args) 
 		{
-			if (!File.Exists("config.xml")){
+			if (!File.Exists("config.xml"))
 				configure.create();
-			}
 			ReadXMLConfig();
 			try
 			{
