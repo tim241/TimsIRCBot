@@ -203,8 +203,7 @@ namespace TimsIRCBot
 			catch (Exception e)
 			{
 				Error(e.ToString());
-				System.Threading.Thread.Sleep(5000);
-				Main(args);
+				File.WriteAllText("crash.log", e.ToString());
 			}
 		}
 	}
