@@ -125,9 +125,7 @@ namespace TimsIRCBot
 			IRCservport = Convert.ToInt32(XMLport[0].InnerText);
 			IRCnick = XMLnick[0].InnerText.ToString();
 			if (!string.IsNullOrEmpty(XMLpassword[0].InnerText.ToString()))
-			{
 				IRCpass = XMLpassword[0].InnerText.ToString();
-			}
 			IRCuser = "USER " + IRCnick + " 0 * :" + IRCnick;
 			for (int i = 0; i < XMLchannels.Count; i++)
 			{
@@ -149,9 +147,7 @@ namespace TimsIRCBot
 						IN(input);
 						splitinput = input.Split(' ');
 						if (splitinput[0] == "PING")
-						{
 							SendRaw("PONG " + splitinput[1]);
-						}
 						if (splitinput[1] == "001")
 						{
 							foreach (string IRCchannel in IRCchannels.Split(new string[] { Environment.NewLine }, StringSplitOptions.None).Skip(2))
