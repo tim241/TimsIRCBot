@@ -60,7 +60,7 @@ namespace TimsIRCBot
 		internal static void SendRaw(string rawdata, bool output = true) {
 			IRCwriter.WriteLine(rawdata);
 			IRCwriter.Flush();
-			if(output == true)
+			if(output)
 				OUT(rawdata);
 		}
 		// kicks a user from a channel
@@ -92,7 +92,7 @@ namespace TimsIRCBot
 		// Checks if the user who requested the command, has OP
 		internal static bool IsOP(string user, string channel, bool HasTarget = false)
 		{
-			if (HasTarget == true)
+			if (HasTarget)
 			{
 				if (splitinput.LongLength < 5)
 				{
