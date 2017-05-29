@@ -71,7 +71,7 @@ namespace TimsIRCBot
 				OUT(rawdata);
 		}
 		// kicks a user from a channel
-		internal static void kick(string user, string channel)
+		internal static void Kick(string user, string channel)
 		{
 			SendRaw("KICK " + channel + " " + user);
 		}
@@ -89,7 +89,7 @@ namespace TimsIRCBot
 		internal static void Ban(string user, string channel)
 		{
 			SendRaw("MODE " + channel + " +b " + user + "*!*");
-			kick(user, channel);
+			Kick(user, channel);
 		}
 		// Send the password to nickserv
 		internal static void IRClogin(string password)
@@ -171,7 +171,7 @@ namespace TimsIRCBot
 							if (IRCmessage == IRCprefix + "kick" || IRCmessage == IRCprefix + "k")
 							{
 								if (IsOP(IRCuser, IRCreciever, true))
-									kick(splitinput[4], IRCreciever);
+									Kick(splitinput[4], IRCreciever);
 							}
 							else if (IRCmessage == IRCprefix + "ban" || IRCmessage == IRCprefix + "b")
 							{
