@@ -6,8 +6,8 @@ namespace TimsIRCBot
 	class configure
 	{
 		// Declaring strings
-		internal static XmlWriterSettings settings;
-		internal static XmlWriter config;
+		internal static XmlWriterSettings XMLsettings;
+		internal static XmlWriter XMLconfig;
 		internal static string IRCserver;
 		internal static string IRCport;
 		internal static string IRCnick;
@@ -41,24 +41,24 @@ namespace TimsIRCBot
 		// Save configuration file 
 		internal static void Save()
 		{
-			settings = new XmlWriterSettings { Indent = true, OmitXmlDeclaration = true };
-			config = XmlWriter.Create("config.xml", settings);
-			config.WriteStartDocument();
-			config.WriteStartElement("Settings");
-			config.WriteElementString("SERVER", IRCserver);
-			config.WriteElementString("PORT", IRCport);
-			config.WriteElementString("NICK", IRCnick);
-			config.WriteElementString("PREFIX", IRCprefix);
-			config.WriteElementString("PASSWORD", IRCpassword);
+			XMLsettings = new XmlWriterSettings { Indent = true, OmitXmlDeclaration = true };
+			XMLconfig = XmlWriter.Create("config.xml", XMLsettings);
+			XMLconfig.WriteStartDocument();
+			XMLconfig.WriteStartElement("Settings");
+			XMLconfig.WriteElementString("SERVER", IRCserver);
+			XMLconfig.WriteElementString("PORT", IRCport);
+			XMLconfig.WriteElementString("NICK", IRCnick);
+			XMLconfig.WriteElementString("PREFIX", IRCprefix);
+			XMLconfig.WriteElementString("PASSWORD", IRCpassword);
 			string[] channels = IRCchannels.Split(' ');
 			foreach (string channel in channels)
 			{
-				config.WriteStartElement("channel");
-				config.WriteElementString("ID", channel);
-				config.WriteEndElement();
+				XMLconfig.WriteStartElement("channel");
+				XMLconfig.WriteElementString("ID", channel);
+				XMLconfig.WriteEndElement();
 			}
-			config.WriteEndDocument();
-			config.Flush();
+			XMLconfig.WriteEndDocument();
+			XMLconfig.Flush();
 		}
 		// Save configuration to strings
 		internal static void create()

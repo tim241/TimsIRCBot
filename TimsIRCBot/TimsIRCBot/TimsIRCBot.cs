@@ -42,7 +42,7 @@ namespace TimsIRCBot
 			Console.ForegroundColor = ConsoleColor.Green;
 			Console.Write(">> ");
 			Console.ResetColor();
-			Console.Write(output + Environment.NewLine);
+			Console.Write(output + Environment.NewLine); 
 		}
 		// Write input to the console
 		internal static void IN(string input)
@@ -50,7 +50,7 @@ namespace TimsIRCBot
 			Console.ForegroundColor = ConsoleColor.Red;
 			Console.Write("<< ");
 			Console.ResetColor();
-			Console.Write(input + Environment.NewLine);
+			Console.Write(input + Environment.NewLine); 
 		}
 		// Send a message to the selected channel
 		internal static void SendMessage(string message, string user, bool output = true)
@@ -112,28 +112,28 @@ namespace TimsIRCBot
 			}
 		}
 		// Read the configuration file and change strings
-		internal static void ReadConfigXML()
+		internal static void ReadXMLConfig()
 		{
-			XmlDocument config = new XmlDocument();
-			config.Load("config.xml");
-			XmlNodeList server = config.GetElementsByTagName("SERVER");
-			XmlNodeList channels = config.GetElementsByTagName("ID");
-			XmlNodeList port = config.GetElementsByTagName("PORT");
-			XmlNodeList nick = config.GetElementsByTagName("NICK");
-			XmlNodeList password = config.GetElementsByTagName("PASSWORD");
-			XmlNodeList prefix = config.GetElementsByTagName("PREFIX");
-			IRCprefix = prefix[0].InnerText.ToString();
-			IRCservaddr = server[0].InnerText.ToString();
-			IRCservport = Convert.ToInt32(port[0].InnerText);
-			IRCnick = nick[0].InnerText.ToString();
-			if (!string.IsNullOrEmpty(password[0].InnerText.ToString()))
+			XmlDocument XMLconfig = new XmlDocument();
+			XMLconfig.Load("config.xml");
+			XmlNodeList XMLserver = XMLconfig.GetElementsByTagName("SERVER");
+			XmlNodeList XMLchannels = XMLconfig.GetElementsByTagName("ID");
+			XmlNodeList XMLport = XMLconfig.GetElementsByTagName("PORT");
+			XmlNodeList XMLnick = XMLconfig.GetElementsByTagName("NICK");
+			XmlNodeList XMLpassword = XMLconfig.GetElementsByTagName("PASSWORD");
+			XmlNodeList XMLprefix = XMLconfig.GetElementsByTagName("PREFIX");
+			IRCprefix = XMLprefix[0].InnerText.ToString();
+			IRCservaddr = XMLserver[0].InnerText.ToString();
+			IRCservport = Convert.ToInt32(XMLport[0].InnerText);
+			IRCnick = XMLnick[0].InnerText.ToString();
+			if (!string.IsNullOrEmpty(XMLpassword[0].InnerText.ToString()))
 			{
-				IRCpass = password[0].InnerText.ToString();
+				IRCpass = XMLpassword[0].InnerText.ToString();
 			}
 			IRCuser = "USER " + IRCnick + " 0 * :" + IRCnick;
-			for (int i = 0; i < channels.Count; i++)
+			for (int i = 0; i < XMLchannels.Count; i++)
 			{
-					IRCchannels = IRCchannels.ToString() + Environment.NewLine + channels[i].InnerText;
+					IRCchannels = IRCchannels.ToString() + Environment.NewLine + XMLchannels[i].InnerText;
 			}
 		}
 		static void Main(string[] args) 
@@ -141,7 +141,7 @@ namespace TimsIRCBot
 			if (!File.Exists("config.xml")){
 				configure.create();
 			}
-			ReadConfigXML();
+			ReadXMLConfig();
 			try
 			{
 				IRCconnect();
