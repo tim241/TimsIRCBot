@@ -92,6 +92,11 @@ namespace TimsIRCBot
 			SendRaw("MODE " + channel + " +b " + user + "*!*");
 			Kick(user, channel);
 		}
+		// Joins a channel
+		internal static void Join(string channel)
+		{
+			SendRaw("JOIN " + channel);
+		}
 		// Send the password to nickserv
 		internal static void IRClogin(string password)
 		{
@@ -197,7 +202,12 @@ namespace TimsIRCBot
 							else if (IRCmessage == IRCprefix + "help" || IRCmessage == IRCprefix + "h")
 							{
 								if (HasAccess(IRCuser, IRCreciever, false))
-									SendMessage("Commands: k(ick), b(an), op, deop and h(elp).", IRCreciever);
+									SendMessage("Commands: k(ick), b(an), j(oin), op, deop and h(elp).", IRCreciever);
+							}
+							else if (IRCmessage == IRCprefix + "join" || IRCmessage == IRCprefix + "j")
+							{
+								if (HasAccess(IRCuser, IRCreciever, true))
+									Join(splitinput[4]);
 							}
 						}
 					}
