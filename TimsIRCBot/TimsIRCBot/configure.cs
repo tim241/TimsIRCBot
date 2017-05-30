@@ -8,6 +8,7 @@ namespace TimsIRCBot
 		// Declaring strings
 		internal static XmlWriterSettings XMLsettings;
 		internal static XmlWriter XMLconfig;
+		internal static string IRCHasAccess;
 		internal static string IRCserver;
 		internal static string IRCport;
 		internal static string IRCnick;
@@ -49,6 +50,7 @@ namespace TimsIRCBot
 			XMLconfig.WriteElementString("PORT", IRCport);
 			XMLconfig.WriteElementString("NICK", IRCnick);
 			XMLconfig.WriteElementString("PREFIX", IRCprefix);
+			XMLconfig.WriteElementString("HASACCESS", IRCHasAccess);
 			XMLconfig.WriteElementString("PASSWORD", IRCpassword);
 			string[] channels = IRCchannels.Split(' ');
 			foreach (string channel in channels)
@@ -75,6 +77,8 @@ namespace TimsIRCBot
 			IRCserver = Console.ReadLine();
 			Write("Server port: ");
 			IRCport = Console.ReadLine();
+			Write("Admin user:");
+			IRCHasAccess = Console.ReadLine();
 			WriteLine("If you want to join multiple channels, then do it like this:");
 			WriteLine("#channel1 #channel2 #channel3");
 			Write("Channel(s): ");
@@ -84,7 +88,7 @@ namespace TimsIRCBot
 			WriteLine("Example: it will be: '>command'");
 			IRCprefix = Console.ReadLine();
 			Wait();
-			foreach (string data in new string[] { IRCnick, IRCserver, IRCport, IRCchannels, IRCprefix })
+			foreach (string data in new string[] { IRCnick, IRCserver, IRCport, IRCchannels, IRCprefix, IRCHasAccess })
 				EmptyCheck(data);
 			Save();
 			WriteLine("Done!");

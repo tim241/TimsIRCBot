@@ -11,6 +11,7 @@ namespace TimsIRCBot
 		internal static string input;
 		internal static string[] splitinput;
 		internal static string IRCchannels = Environment.NewLine;
+		internal static string IRCHasAccess = Environment.NewLine;
 		internal static string IRCnick;
 		internal static string IRCpass;
 		internal static string IRCservaddr;
@@ -96,8 +97,8 @@ namespace TimsIRCBot
 		{
 			SendMessage("identify " + IRCnick + " " + password, "nickserv", false);
 		}
-		// Checks if the user who requested the command, has OP
-		internal static bool IsOP(string user, string channel, bool HasTarget = false)
+		// See if the user has access
+		internal static bool HasAccess(string user, string channel, bool HasTarget = false)
 		{
 			if (HasTarget)
 			{
@@ -107,14 +108,14 @@ namespace TimsIRCBot
 					return false;
 				}
 			}
-			SendRaw("NAMES " + channel);
-			if (IRCreader.ReadLine().Contains("@" + user))
-				return true;
-			else
+			foreach (string IRCAdmin in IRCHasAccess.Split(new string[] { Environment.NewLine }, StringSplitOptions.None).Skip(2))
 			{
-				SendMessage("Error: access denied", channel);
-				return false;
+				if (user == IRCAdmin)
+					return true;
+
 			}
+			SendMessage("Error: Access denied", channel);
+			return false;
 		}
 		// Read the configuration file and change strings
 		internal static void ReadXMLConfig()
@@ -125,6 +126,7 @@ namespace TimsIRCBot
 			XmlNodeList XMLchannels = XMLconfig.GetElementsByTagName("ID");
 			XmlNodeList XMLport = XMLconfig.GetElementsByTagName("PORT");
 			XmlNodeList XMLnick = XMLconfig.GetElementsByTagName("NICK");
+			XmlNodeList XMLHasAccess = XMLconfig.GetElementsByTagName("HASACCESS");
 			XmlNodeList XMLpassword = XMLconfig.GetElementsByTagName("PASSWORD");
 			XmlNodeList XMLprefix = XMLconfig.GetElementsByTagName("PREFIX");
 			IRCprefix = XMLprefix[0].InnerText.ToString();
@@ -137,6 +139,10 @@ namespace TimsIRCBot
 			for (int i = 0; i < XMLchannels.Count; i++)
 			{
 					IRCchannels = IRCchannels.ToString() + Environment.NewLine + XMLchannels[i].InnerText;
+			}
+			for (int i = 0; i < XMLHasAccess.Count; i++)
+			{
+					IRCHasAccess = IRCHasAccess.ToString() + Environment.NewLine + XMLHasAccess[i].InnerText;
 			}
 		}
 		static void Main(string[] args) 
@@ -170,27 +176,27 @@ namespace TimsIRCBot
 							string IRCuser = IRCusersplit[0].Remove(0, 1);
 							if (IRCmessage == IRCprefix + "kick" || IRCmessage == IRCprefix + "k")
 							{
-								if (IsOP(IRCuser, IRCreciever, true))
+								if (HasAccess(IRCuser, IRCreciever, true))
 									Kick(splitinput[4], IRCreciever);
 							}
 							else if (IRCmessage == IRCprefix + "ban" || IRCmessage == IRCprefix + "b")
 							{
-								if (IsOP(IRCuser, IRCreciever, true))
+								if (HasAccess(IRCuser, IRCreciever, true))
 									Ban(splitinput[4], IRCreciever);
 							}
 							else if (IRCmessage == IRCprefix + "op")
 							{
-								if (IsOP(IRCuser, IRCreciever, true))
+								if (HasAccess(IRCuser, IRCreciever, true))
 									OP(splitinput[4], IRCreciever);
 							}
 							else if (IRCmessage == IRCprefix + "deop")
 							{
-								if (IsOP(IRCuser, IRCreciever, true))
+								if (HasAccess(IRCuser, IRCreciever, true))
 									DeOP(splitinput[4], IRCreciever);
 							}
 							else if (IRCmessage == IRCprefix + "help" || IRCmessage == IRCprefix + "h")
 							{
-								if (IsOP(IRCuser, IRCreciever, false))
+								if (HasAccess(IRCuser, IRCreciever, false))
 									SendMessage("Commands: k(ick), b(an), op, deop and h(elp).", IRCreciever);
 							}
 						}
